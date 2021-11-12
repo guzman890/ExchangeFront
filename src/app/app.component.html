@@ -1,0 +1,152 @@
+<mat-tab-group mat-align-tabs="center" >
+
+  <mat-tab label="Login" *ngIf="BLogin">
+    <div fxLayoutAlign="center center" fxLayout="column">
+      <div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="fill-primary-contrast" fxFlex="auto" fxLayoutAlign="center center">
+            Sign in
+          </div>
+      </div>
+          <div fxLayout="column" fxLayoutGap="8px">
+              <div fxLayout="row" fxLayoutGap="8px">
+                  <div fxLayoutGap="8px">
+                      <mat-form-field appearance="outline">
+                          <mat-label> UserName</mat-label>
+                          <input matInput placeholder="username" type="email" [(ngModel)]="username"/>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="8px">
+                  <div fxLayoutGap="8px">
+                      <mat-form-field appearance="outline">
+                          <mat-label> Password</mat-label>
+                          <input matInput type="password" placeholder="password" [(ngModel)]="password" />
+                      </mat-form-field>
+                  </div>
+    
+              </div>      
+          </div>       
+      <div fxLayoutAlign="space-between center" fxLayoutGap="8px" >
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="login()" >Login</button>
+      </div>
+    </div>
+  </mat-tab>
+  
+  <mat-tab label="Exchange Rate" *ngIf="BExchange">
+
+    <div fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="8px" >
+      <mat-card class="example-card" >
+                    
+        <mat-card-header fxLayout="column" fxLayoutGap="8px">
+          <mat-card-title>
+            Exchange Rate
+          </mat-card-title>
+          <mat-card-subtitle>
+             
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content fxLayout="column" fxLayoutGap="8px"  >
+          <div fxLayout="row">
+            <mat-form-field appearance="outline">
+              <mat-label> Origin Currency</mat-label>
+              <mat-select [(value)]="origin">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let currency of currencys" [value]="currency">{{currency.symbol}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+  
+            <mat-form-field appearance="outline">
+              <mat-label> foreign Currency</mat-label>
+              <mat-select [(value)]="foreign" >
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let currency of currencys" [value]="currency">{{currency.symbol}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <button mat-raised-button color="primary" cdkFocusInitial (click)="verificar()" >Buscar</button>
+
+          <mat-label> rate </mat-label>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <p> {{exchangeRate.rate}} </p>
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          
+          <div fxLayout="row">
+            <mat-form-field appearance="outline">
+              <mat-label> Origin Currency</mat-label>
+              <input matInput placeholder="1000" [(ngModel)]="amount" (ngModelChange)="dataChanged($event)"/>
+            </mat-form-field>
+  
+  
+            <mat-form-field appearance="outline">
+              <mat-label> foreign Currency</mat-label>
+              <input matInput placeholder="xxxxxxx" [(ngModel)]="exchangeAmount" readonly/>
+            </mat-form-field>
+          </div>
+
+  
+        </mat-card-content>  
+        <mat-card-actions>
+          <button mat-raised-button color="primary" cdkFocusInitial (click)="logout()" >Log Out</button>
+        </mat-card-actions>  
+  
+      </mat-card>
+    </div> 
+  </mat-tab>
+
+  <mat-tab label="Edit Exchange Rate" *ngIf="BModify">
+    <div fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="8px" >
+      <mat-card class="example-card" >
+                    
+        <mat-card-header fxLayout="column" fxLayoutGap="8px">
+          <mat-card-title>
+            Exchange Rate
+          </mat-card-title>
+          <mat-card-subtitle>
+             
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content fxLayout="column" fxLayoutGap="8px"  >
+          <div fxLayout="row">
+            <mat-form-field appearance="outline">
+              <mat-label> Origin Currency</mat-label>
+              <mat-select [(value)]="origin" ng>
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let currency of currencys" [value]="currency">{{currency.symbol}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+  
+            <mat-form-field appearance="outline">
+              <mat-label> foreign Currency</mat-label>
+              <mat-select [(value)]="foreign">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let currency of currencys" [value]="currency">{{currency.symbol}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <button mat-raised-button color="primary" cdkFocusInitial (click)="verificar()" >Verificar</button>
+
+          <mat-label> rate </mat-label>
+          <div fxLayout="row" fxLayoutAlign="center center">
+
+            <input [(ngModel)]="exchangeRate.rate" />
+            <mat-icon>attach_money</mat-icon>
+          </div>
+
+  
+        </mat-card-content>  
+        <mat-card-actions>
+          <button mat-raised-button color="primary" cdkFocusInitial (click)="save()" >Save</button>
+        </mat-card-actions>  
+  
+      </mat-card>
+    </div> 
+  </mat-tab>
+
+</mat-tab-group>
